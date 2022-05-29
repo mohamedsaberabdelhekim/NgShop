@@ -1,0 +1,183 @@
+<!-- component -->
+<section class="bg-white dark:bg-gray-900">
+    <div class="container  py-8 mx-auto">
+        <div class="lg:flex lg:-mx-2">
+            <!-- <div class="space-y-3 lg:w-1/5 lg:px-2 lg:space-y-4  rounded-lg shadow-lg border-2">
+                <div class="lg:w-4/5 p-2">
+                    <a class=" border-b-2 p-2 block font-medium text-gray-500 dark:text-gray-300 hover:underline"
+                        *ngFor="let items of category" (click)="selectcat(items.Name)">
+                        <i class="{{ items.Logo }}"></i>
+                        {{ items.Name }}</a>
+                </div>
+            </div> -->
+
+            <div class=" navhidden flex flex-col lg:w-64 h-screen lg:px-4 py-8 bg-white border-r dark:bg-gray-800 dark:border-gray-600">
+
+              <div class="relative mt-6">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                      <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
+                          <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                  </span>
+
+                  <input type="text" class="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search"/>
+              </div>
+
+              <div  class=" flex flex-col justify-between flex-1 mt-6">
+                  <nav>
+                      <a *ngFor="let items of category" (click)="selectcat(items.Name)" class="flex cursor-pointer mt-5 items-center px-4 py-2  text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700">
+
+                          <span class="mx-4 font-medium">{{ items.Name }}</span>
+                      </a>
+
+
+
+
+
+
+
+
+                  </nav>
+
+
+              </div>
+          </div>
+
+
+
+            <div class=" mt-6 lg:mt-0 lg:px-2 lg:w-4/5  mx-auto  ">
+                <div class="flex items-center justify-between text-sm tracking-widest uppercase">
+                    <p class="text-gray-500 dark:text-gray-300">{{ countitems }} Items</p>
+                    <div class="flex items-center">
+                        <p class="text-gray-500 dark:text-gray-300">Sort</p>
+                        <select [(ngModel)]="selectcatval" (change)="selectcat(selectcatval)"
+                            class="font-medium text-gray-700 bg-transparent dark:text-gray-500 focus:outline-none">
+                            <option value="none" active>Recommended</option>
+                            <option value="{{ items.Name }}" *ngFor="let items of category">
+                                {{ items.Name }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="  grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 p-1">
+                    <div class=" hover:shadow-md  flex flex-col  justify-between w-full max-w-lg mx-auto mt-1 p-2"  *ngFor="let item of productsselect; let countitems=count" >
+                        <img class="rounded-md h-72  bg-center"
+                            src="{{item.image}}"
+                            alt="T-Shirt" />
+                        <h4 class="mt-2 h-20 p-2 text-lg font-medium text-gray-700 dark:text-gray-200">
+                            {{item.title}}
+                        </h4>
+
+
+                        <div class="flex justify-between mt-10 item-center ">
+                            <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">{{item.price|currency}}</h1>
+                            <h1 class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">{{item.rating.count}} in stock</h1>
+                        </div>
+
+
+
+                    <button
+                       (click)="buy(item.id)" class="flex items-center justify-center w-full px-4 py-4 mt-10 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                                d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
+                        </svg>
+                        <span class="mx-2">Add to cart</span>
+                    </button>
+                    </div>
+
+
+
+                    <!-- <div class="flex max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800" *ngFor="let item of productsselect; let countitems=count">
+        <div class="w-1/3 bg-cover bg-center bg-blend-screen" style="background-image: url('{{item.image}}')"></div>
+
+        <div class="w-2/3 p-4 md:p-4">
+            <h1 class=" font-bold text-gray-800 dark:text-white">{{item.title}}</h1>
+
+            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{{item.description|slice:0:100}}....</p>
+
+            <div class="flex mt-2 item-center">
+                <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                </svg>
+
+                <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                </svg>
+
+                <svg class="w-5 h-5 text-gray-700 fill-current dark:text-gray-300" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                </svg>
+
+                <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                </svg>
+
+                <svg class="w-5 h-5 text-gray-500 fill-current" viewBox="0 0 24 24">
+                    <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z"/>
+                </svg>
+            </div>
+
+            <div class="flex justify-between mt-3 item-center">
+                <h1 class="text-lg font-bold text-gray-700 dark:text-gray-200 md:text-xl">${{item.price}}</h1>
+                <button class="px-2 py-1 text-xs font-bold text-white uppercase transition-colors duration-200 transform bg-gray-800 rounded dark:bg-gray-700 hover:bg-gray-700 dark:hover:bg-gray-600 focus:outline-none focus:bg-gray-700 dark:focus:bg-gray-600">Add to Cart</button>
+            </div>
+        </div>
+    </div> -->
+
+                </div>
+
+
+
+                <hr class=" mt-4">
+                <div class="flex justify-center p-5 mt-4">
+                    <a href="#" class="px-4 py-2 mx-1 text-gray-500 capitalize bg-white rounded-md cursor-not-allowed dark:bg-gray-900 dark:text-gray-600">
+                        <div class="flex items-center -mx-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+                            </svg>
+
+                            <span class="mx-1">
+                                previous
+                            </span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md sm:inline dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        1
+                    </a>
+
+                    <a href="#" class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md sm:inline dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        2
+                    </a>
+
+                    <a href="#" class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md sm:inline dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        3
+                    </a>
+
+                    <a href="#" class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md sm:inline dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        4
+                    </a>
+
+                    <a href="#" class="hidden px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md sm:inline dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        5
+                    </a>
+
+                    <a href="#" class="px-4 py-2 mx-1 text-gray-700 transition-colors duration-200 transform bg-white rounded-md dark:bg-gray-900 dark:text-gray-200 hover:bg-blue-500 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200">
+                        <div class="flex items-center -mx-1">
+                            <span class="mx-1">
+                                Next
+                            </span>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mx-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
