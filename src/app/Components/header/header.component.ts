@@ -10,6 +10,8 @@ import { StoreData } from 'src/app/Views/store-data';
 export class HeaderComponent implements OnInit {
   // cartOpen:boolean = true;
   // isOpen:boolean = false;
+  term = '';
+  searchTerm = '';
   Status : boolean = false;
   storeData:StoreData;
   constructor(public myService : CartService) {
@@ -30,6 +32,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.myService.toggle.subscribe(status=>this.Status = status);
+    this.myService.searchBox=this.term;
   }
 
 

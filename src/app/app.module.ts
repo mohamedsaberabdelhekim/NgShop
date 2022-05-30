@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Components/header/header.component';
@@ -19,6 +18,10 @@ import { LightBoxDirective } from './Directives/light-box.directive';
 import { CardPipe } from './Pipes/card.pipe';
 import { CartComponent } from './Components/cart/cart.component';
 import { CheckoutComponent } from './Components/checkout/checkout.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SearchFilterPipe } from './Pipes/search-filter.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,12 +39,15 @@ import { CheckoutComponent } from './Components/checkout/checkout.component';
     CardPipe,
     CartComponent,
     CheckoutComponent,
+    SearchFilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

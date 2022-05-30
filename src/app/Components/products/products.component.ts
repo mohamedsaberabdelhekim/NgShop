@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ICategory } from 'src/app/Models/ICategory';
 import { IProduct } from 'src/app/Models/IProduct';
 import { CartService } from 'src/app/services/cart.service';
@@ -8,13 +14,32 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, AfterViewInit {
+  countsingleproduct: string="0";
   products: IProduct[] = [];
-  productsselect: IProduct[] = [];
+  // productsselect: IProduct[] = [];
   category: ICategory[];
   selectcatval: any = 'none';
   countitems: number = 0;
-  constructor(private myService: CartService) {
+
+  Products_pag: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 3;
+
+
+
+
+
+
+
+
+
+
+
+  // @ViewChild('countOrderProduct') countOrderProduct!:ElementRef;
+
+  constructor(public myService: CartService) {
     this.products = [
       {
         id: 1,
@@ -25,6 +50,7 @@ export class ProductsComponent implements OnInit {
         category: "men's clothing",
         image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
         rating: { rate: 3.9, count: 120 },
+        countorder: 0,
       },
       {
         id: 2,
@@ -36,6 +62,7 @@ export class ProductsComponent implements OnInit {
         image:
           'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
         rating: { rate: 4.1, count: 259 },
+        countorder: 0,
       },
       {
         id: 3,
@@ -46,6 +73,7 @@ export class ProductsComponent implements OnInit {
         category: "men's clothing",
         image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
         rating: { rate: 4.7, count: 500 },
+        countorder: 0,
       },
       {
         id: 4,
@@ -56,6 +84,7 @@ export class ProductsComponent implements OnInit {
         category: "men's clothing",
         image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
         rating: { rate: 2.1, count: 430 },
+        countorder: 0,
       },
       {
         id: 5,
@@ -68,6 +97,7 @@ export class ProductsComponent implements OnInit {
         image:
           'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
         rating: { rate: 4.6, count: 400 },
+        countorder: 0,
       },
       {
         id: 6,
@@ -79,6 +109,7 @@ export class ProductsComponent implements OnInit {
         image:
           'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg',
         rating: { rate: 3.9, count: 70 },
+        countorder: 0,
       },
       {
         id: 7,
@@ -90,6 +121,7 @@ export class ProductsComponent implements OnInit {
         image:
           'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg',
         rating: { rate: 3, count: 400 },
+        countorder: 0,
       },
       {
         id: 8,
@@ -101,6 +133,7 @@ export class ProductsComponent implements OnInit {
         image:
           'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg',
         rating: { rate: 1.9, count: 100 },
+        countorder: 0,
       },
       {
         id: 9,
@@ -111,6 +144,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg',
         rating: { rate: 3.3, count: 203 },
+        countorder: 0,
       },
       {
         id: 10,
@@ -121,6 +155,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg',
         rating: { rate: 2.9, count: 470 },
+        countorder: 0,
       },
       {
         id: 11,
@@ -132,6 +167,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg',
         rating: { rate: 4.8, count: 319 },
+        countorder: 0,
       },
       {
         id: 12,
@@ -143,6 +179,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg',
         rating: { rate: 4.8, count: 400 },
+        countorder: 0,
       },
       {
         id: 13,
@@ -154,6 +191,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
         rating: { rate: 2.9, count: 250 },
+        countorder: 0,
       },
       {
         id: 14,
@@ -165,6 +203,7 @@ export class ProductsComponent implements OnInit {
         category: 'electronics',
         image: 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg',
         rating: { rate: 2.2, count: 140 },
+        countorder: 0,
       },
       {
         id: 15,
@@ -175,6 +214,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg',
         rating: { rate: 2.6, count: 235 },
+        countorder: 0,
       },
       {
         id: 16,
@@ -186,6 +226,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg',
         rating: { rate: 2.9, count: 340 },
+        countorder: 0,
       },
       {
         id: 17,
@@ -196,6 +237,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg',
         rating: { rate: 3.8, count: 679 },
+        countorder: 0,
       },
       {
         id: 18,
@@ -206,6 +248,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg',
         rating: { rate: 4.7, count: 130 },
+        countorder: 0,
       },
       {
         id: 19,
@@ -216,6 +259,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg',
         rating: { rate: 4.5, count: 146 },
+        countorder: 0,
       },
       {
         id: 20,
@@ -226,6 +270,7 @@ export class ProductsComponent implements OnInit {
         category: "women's clothing",
         image: 'https://fakestoreapi.com/img/61pHAEJ4NML._AC_UX679_.jpg',
         rating: { rate: 3.6, count: 145 },
+        countorder: 0,
       },
     ];
     this.category = [
@@ -234,44 +279,125 @@ export class ProductsComponent implements OnInit {
         Logo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
       `,
       },
-      { Name: 'jewelery', Logo:   `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M9.38 21.646A9.985 9.985 0 0 0 12 22l.141-.001a2.998 2.998 0 0 0 2.515-1.425c.542-.876.6-1.953.153-2.88l-.198-.415c-.453-.942-.097-1.796.388-2.281.485-.485 1.341-.841 2.28-.388h.001l.413.199a2.99 2.99 0 0 0 2.881-.153A2.997 2.997 0 0 0 22 12.141a9.926 9.926 0 0 0-.353-2.76c-1.038-3.827-4.353-6.754-8.246-7.285-3.149-.427-6.241.602-8.471 2.833S1.666 10.247 2.096 13.4c.53 3.894 3.458 7.208 7.284 8.246zM15.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM9 15.506a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-2.5-6.5a1.5 1.5 0 1 1-.001 3.001A1.5 1.5 0 0 1 6.5 9.006z"></path></svg>` },
-      { Name: "men's clothing",Logo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
-      ` },
-      { Name: "women's clothing", Logo:   `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13 10.551v-.678A4.005 4.005 0 0 0 16 6c0-2.206-1.794-4-4-4S8 3.794 8 6h2c0-1.103.897-2 2-2s2 .897 2 2-.897 2-2 2a1 1 0 0 0-1 1v1.551l-8.665 7.702A1.001 1.001 0 0 0 3 20h18a1.001 1.001 0 0 0 .664-1.748L13 10.551zM5.63 18 12 12.338 18.37 18H5.63z"></path></svg>` },
+      {
+        Name: 'jewelery',
+        Logo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M9.38 21.646A9.985 9.985 0 0 0 12 22l.141-.001a2.998 2.998 0 0 0 2.515-1.425c.542-.876.6-1.953.153-2.88l-.198-.415c-.453-.942-.097-1.796.388-2.281.485-.485 1.341-.841 2.28-.388h.001l.413.199a2.99 2.99 0 0 0 2.881-.153A2.997 2.997 0 0 0 22 12.141a9.926 9.926 0 0 0-.353-2.76c-1.038-3.827-4.353-6.754-8.246-7.285-3.149-.427-6.241.602-8.471 2.833S1.666 10.247 2.096 13.4c.53 3.894 3.458 7.208 7.284 8.246zM15.5 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm-5-1a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zM9 15.506a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-2.5-6.5a1.5 1.5 0 1 1-.001 3.001A1.5 1.5 0 0 1 6.5 9.006z"></path></svg>`,
+      },
+      {
+        Name: "men's clothing",
+        Logo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M21.316 4.055C19.556 3.478 15 1.985 15 2a3 3 0 1 1-6 0c0-.015-4.556 1.478-6.317 2.055A.992.992 0 0 0 2 5.003v3.716a1 1 0 0 0 1.242.97L6 9v12a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9l2.758.689A1 1 0 0 0 22 8.719V5.003a.992.992 0 0 0-.684-.948z"></path></svg>
+      `,
+      },
+      {
+        Name: "women's clothing",
+        Logo: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M13 10.551v-.678A4.005 4.005 0 0 0 16 6c0-2.206-1.794-4-4-4S8 3.794 8 6h2c0-1.103.897-2 2-2s2 .897 2 2-.897 2-2 2a1 1 0 0 0-1 1v1.551l-8.665 7.702A1.001 1.001 0 0 0 3 20h18a1.001 1.001 0 0 0 .664-1.748L13 10.551zM5.63 18 12 12.338 18.37 18H5.63z"></path></svg>`,
+      },
     ];
+    // this.productsselect=this.Products_pag;
+  }
+  ngAfterViewInit(): void {
+    console.log(this.countsingleproduct);
   }
 
-  buy(productID: any) {
-    this.products.map((product) => {
+  increasingcount(productID: any) {
+
+    productID.value++;
+  }
+  decreasingcount(productID: any) {
+
+    productID.value--;
+  }
+
+  buy(productID: any, productcount: any) {
+    if(this.myService.cartproduct==[]){
+      this.myService.productsselect.map((product) => {
+        product.countorder=0;
+        
+      })
+    }
+    else{
+
+
+      this.myService.productsselect.map((product) => {
       if (product.id === productID) {
-        product.rating.count--;
-        this.myService.productCount++;
-        this.myService.cartproduct.push(product);
+        if (Number(productcount.value) > 0) {
+          if (
+            !this.myService.cartproduct.find((data) => data.id === productID)
+          ) {
+            product.rating.count =
+              product.rating.count - Number(productcount.value);
+            product.countorder += Number(productcount.value);
+            this.myService.cartproduct.push(product);
+            this.myService.productCount++;
+          } else {
+            this.myService.cartproduct.map((productservice) => {
+              if (productservice.id == productID) {
+                productservice.countorder += Number(productcount.value);
+                productservice.rating.count -= Number(productcount.value);
+              }
+            });
+          }
+        }
       }
+
     });
-    this.myService.totalprice(productID);
+  }
+    this.myService.totalprice();
+
+
+
+  }
+  onQuantityChange(event: any, itemId: number) {
+    let newQuantity = parseInt(event.target.value);
+    console.log(newQuantity);
+    if (Number.isNaN(newQuantity) || newQuantity < 0) {
+      newQuantity = 0;
+      event.target.value = 0;
+    }
+
+    this.myService.cartproduct = this.myService.cartproduct.map((item) => {
+      if (item.id === itemId) item.countorder = newQuantity;
+      return item;
+    });
   }
   selectcat(categoryName: string) {
-    this.productsselect = [];
+    this.page = 1;
+    this.myService.productsselect = [];
     this.countitems = 0;
     this.products.filter((product) => {
       if (product.category === categoryName) {
-        this.productsselect.push(product);
+        this.myService.productsselect.push(product);
         this.countitems++;
       } else if (categoryName == 'none') {
-        this.productsselect.push(product);
+        this.myService.productsselect.push(product);
         this.countitems++;
       }
     });
   }
   ngOnInit(): void {
     this.products.filter((product) => {
-      this.productsselect.push(product);
+      this.myService.productsselect.push(product);
       this.countitems++;
     });
+  }
+  sendvalue(value: any) {
+    this.countsingleproduct = value;
+    console.log(this.countsingleproduct);
+  }
+  ontableSelect(event: any): void {
+    this.page = event;
+
+    // this.productsselect=this.Products_pag;
+    this.Products_pag = this.myService.productsselect;
+  }
+  onTableSizeChanged(event: any) {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.Products_pag = this.myService.productsselect;
   }
   ngOnChanges(): void {
     //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
     //Add '${implements OnChanges}' to the class.
+    this.Products_pag = this.myService.productsselect;
   }
 }
