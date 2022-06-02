@@ -5,13 +5,23 @@ import { CategoriesComponent } from './Components/categories/categories.componen
 import { HomeComponent } from './Components/home/home.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { NotFoundComponent } from './Components/not-found/not-found.component';
+import { MainUserComponent } from './Components/main-user/main-user.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 
 const routes: Routes = [
-  {path: '', component:HomeComponent},
-  {path: 'products',component:ProductsComponent},
-  {path: 'Categories',component:CategoriesComponent},
-  {path: 'contact',component:ContactComponent},
-  {path: 'about',component:AboutComponent}
+  {path: '', component: MainUserComponent,children:[
+
+
+    {path:'',redirectTo:'/Home',pathMatch:'full'},//default path
+    {path: 'Home', component:HomeComponent},
+    {path: 'products',component:ProductsComponent},
+    {path: 'products/:id',component:ProductDetailsComponent},
+    {path: 'Categories',component:CategoriesComponent},
+    {path: 'contact',component:ContactComponent},
+    {path: 'about',component:AboutComponent},
+  ]},
+  {path:'**',component:NotFoundComponent},//wild card path
 ];
 
 @NgModule({

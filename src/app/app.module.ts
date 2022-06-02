@@ -21,6 +21,9 @@ import { CheckoutComponent } from './Components/checkout/checkout.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SearchFilterPipe } from './Pipes/search-filter.pipe';
+import { NotFoundComponent } from './Components/not-found/not-found.component';
+import { MainUserComponent } from './Components/main-user/main-user.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { SearchFilterPipe } from './Pipes/search-filter.pipe';
     CartComponent,
     CheckoutComponent,
     SearchFilterPipe,
+    NotFoundComponent,
+    MainUserComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
